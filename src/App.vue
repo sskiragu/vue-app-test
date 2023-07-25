@@ -1,16 +1,16 @@
 <template>
   <nav>
-    <router-link to="/" v-if="!isLoggedIn">Home</router-link>
-    <router-link to="/about" v-if="!isLoggedIn">About</router-link>
-    <router-link to="/services" v-if="!isLoggedIn">Services</router-link>
-    <router-link to="/signup" v-if="!isLoggedIn">Signup</router-link>
-    <router-link to="/login" v-if="!isLoggedIn">Login</router-link>
-    <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
+    <router-link to="/" v-if="!isUserLoggedIn">Home</router-link>
+    <router-link to="/about" v-if="!isUserLoggedIn">About</router-link>
+    <router-link to="/services" v-if="!isUserLoggedIn">Services</router-link>
+    <router-link to="/signup" v-if="!isUserLoggedIn">Signup</router-link>
+    <router-link to="/login" v-if="!isUserLoggedIn">Login</router-link>
+    <router-link to="/logout" v-if="isUserLoggedIn">Logout</router-link>
   </nav>
   <router-view/>
 </template>
 
-<script>
+<!-- <script>
 export default{
   computed: {
     isLoggedIn(){
@@ -19,6 +19,18 @@ export default{
     }
   }
 }
+</script> -->
+<script setup>
+  import { ref, onMounted, computed } from 'vue';
+
+  const isLoggedIn = ref(false);
+
+  onMounted(() => {
+    isLoggedIn.value = !!localStorage.getItem('auth-token');
+  })
+
+  const isUserLoggedIn = computed(() => isLoggedIn.value);
+  
 </script>
 
 <style>
