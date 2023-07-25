@@ -1,10 +1,25 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/" v-if="!isLoggedIn">Home</router-link>
+    <router-link to="/about" v-if="!isLoggedIn">About</router-link>
+    <router-link to="/services" v-if="!isLoggedIn">Services</router-link>
+    <router-link to="/signup" v-if="!isLoggedIn">Signup</router-link>
+    <router-link to="/login" v-if="!isLoggedIn">Login</router-link>
+    <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
   </nav>
   <router-view/>
 </template>
+
+<script>
+export default{
+  computed: {
+    isLoggedIn(){
+      const authToken = localStorage.getItem('auth-token');
+      return !!authToken;
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -22,6 +37,7 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  padding: 14px 28px;
 }
 
 nav a.router-link-exact-active {
