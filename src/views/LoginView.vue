@@ -17,15 +17,15 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const user = ref({
     username: '',
     password: ''
 })
 
-
-
 const router = useRouter();
+const store = useStore()
 
 const login = async ()=> {
     try {
@@ -33,6 +33,7 @@ const login = async ()=> {
         console.log(response.data.token);
         const authToken = response.data.token;
         localStorage.setItem('auth-token', authToken)
+        store.commit('setIsLoggedIn')
         router.push({name: 'dashboard'});
     } catch (error) {
         console.log(error);

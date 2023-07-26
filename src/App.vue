@@ -1,12 +1,13 @@
 <template>
   <nav>
-    <router-link to="/" v-if="!isUserLoggedIn">Home</router-link>
-    <router-link to="/about" v-if="!isUserLoggedIn">About</router-link>
-    <router-link to="/services" v-if="!isUserLoggedIn">Services</router-link>
-    <router-link to="/signup" v-if="!isUserLoggedIn">Signup</router-link>
-    <router-link to="/login" v-if="!isUserLoggedIn">Login</router-link>
-    <router-link to="/logout" v-if="isUserLoggedIn">Logout</router-link>
+    <router-link to="/" v-if="!store.state.isLoggedIn">Home</router-link>
+    <router-link to="/about" v-if="!store.state.isLoggedIn">About</router-link>
+    <router-link to="/services" v-if="!store.state.isLoggedIn">Services</router-link>
+    <router-link to="/signup" v-if="!store.state.isLoggedIn">Signup</router-link>
+    <router-link to="/login" v-if="!store.state.isLoggedIn">Login</router-link>
+    <router-link to="/logout" v-if="store.state.isLoggedIn">Logout</router-link>
   </nav>
+  {{ store.state.isLoggedIn }}
   <router-view/>
 </template>
 
@@ -20,7 +21,7 @@ export default{
   }
 }
 </script> -->
-<script setup>
+<!-- <script setup>
   import { ref, onMounted, computed } from 'vue';
 
   const isLoggedIn = ref(false);
@@ -31,6 +32,14 @@ export default{
 
   const isUserLoggedIn = computed(() => isLoggedIn.value);
   
+</script> -->
+
+<script setup>
+import { useStore } from 'vuex';
+
+const store = useStore()
+
+
 </script>
 
 <style>
